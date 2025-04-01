@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import (QApplication, QMainWindow, QVBoxLayout, QWidget,
 from PyQt5.QtCore import QTimer, Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QFont, QColor
 
-# Constants (must match your JUCE setup)
+# Constants
 SHM_NAME = "/my_shared_audio_buffer"
 FLOAT_SIZE = 4
 RING_BUFFER_SIZE = 8192
@@ -30,7 +30,7 @@ def signal_handler(sig, frame):
     QApplication.quit()
 
 
-# Attach signal handler for SIGINT (Ctrl+C)
+# Attach signal handler for SIGINT
 signal.signal(signal.SIGINT, signal_handler)
 
 
@@ -82,7 +82,7 @@ class AudioDataReader(QThread):
         print(f"Offset 20: Value {num_channels} (possible channel count)")
 
         # Try to determine where the audio data starts
-        # From your hex dump, after the first 64 bytes, it's mostly zeros
+        # From hex dump, after the first 64 bytes, it's mostly zeros
         self.audio_data_offset = 64
         print(f"Assuming audio data starts at offset {self.audio_data_offset}")
 
@@ -144,7 +144,7 @@ class AudioDataReader(QThread):
             # Calculate where to read the most recent frames
             frames_to_read = 16  # Just read a few frames for display
 
-            # Based on your hex dump, the buffer might be very small
+            # Based on hex dump, the buffer might be very small
             # or the write index approach might need adjustment
             current_pos = write_index % RING_BUFFER_SIZE
             start_frame = max(0, current_pos - frames_to_read)
